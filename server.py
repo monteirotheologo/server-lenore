@@ -1,7 +1,12 @@
 from flask import Flask
+from flask_socketio import SocketIO, send
 
-app = Flask(_name_)
+application = Flask(_name_)
+socket = SocketIO(application)
 
-@app.route("/")
-def hello_world():
-  return "<p>hello world</p>"
+@socketio.on("message")
+def recieve_message(message):
+  print(f"[msg] : {message}")
+  print(f"the server recieved: '{message}'")
+if __name__ == "__main__":
+  socketio.run(app, host = "127.0.0.1", port=5555)
